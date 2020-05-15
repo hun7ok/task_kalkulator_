@@ -26,8 +26,8 @@ class _KalkulatorState extends State<Kalkulator> {
   final GlobalKey<ScaffoldState> _key = GlobalKey<ScaffoldState>();
   TextEditingController bil1Controller = TextEditingController();
   TextEditingController bil2Controller = TextEditingController();
-  TextEditingController operatorController = TextEditingController();
-  TextEditingController hasilController = TextEditingController();
+  //TextEditingController operatorController = TextEditingController();
+ // TextEditingController hasilController = TextEditingController();
   String bilangan1,bilangan2;
   int hasilnya;
   @override
@@ -106,7 +106,7 @@ class _KalkulatorState extends State<Kalkulator> {
                         onPressed: () {
                           bilangan1 = bil1Controller.text ;
                           bilangan2= bil2Controller.text  ;
-                          hasilnya = int.parse(bilangan1) % int.parse(bilangan2);
+                          hasilnya = int.parse(bilangan1) ~/ int.parse(bilangan2);
                         },
                         child: Text("/"),
                       ),
