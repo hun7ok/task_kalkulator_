@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'Counter_bloc.dart';
 
 void main() => runApp(MyHomePage());
 
@@ -28,7 +29,7 @@ class _KalkulatorState extends State<Kalkulator> {
   TextEditingController bil2Controller = TextEditingController();
   //TextEditingController operatorController = TextEditingController();
  // TextEditingController hasilController = TextEditingController();
-  String bilangan1,bilangan2;
+  String bilangan1,bilangan2,bilangan3;
   int hasilnya;
   @override
   Widget build(BuildContext context) {
@@ -42,87 +43,100 @@ class _KalkulatorState extends State<Kalkulator> {
           ),
         ),
       ),
-      body: Container(
-        padding: EdgeInsets.all(10),
-        child: Form(
-            child: Column(
-              children: <Widget>[
-                TextFormField(
-                  controller: bil1Controller,
-                    keyboardType: TextInputType.number,
-                  decoration: InputDecoration(
-                    hintText: 'Bilangan 1',
+      body: StreamBuilder<int>(
+        stream: BlockData.counter,
+        initialData: 0,
+        builder: (context, snapshot) {
+          return Container(
+            padding: EdgeInsets.all(10),
+            child: Form(
+                child: Column(
+                  children: <Widget>[
+                    TextFormField(
+                      controller: bil1Controller,
+                        keyboardType: TextInputType.number,
+                      decoration: InputDecoration(
+                        hintText: 'Bilangan 1',
 
-                  )
-                ),
-                TextFormField(
-                    controller: bil2Controller,
-                    keyboardType: TextInputType.number,
-                    decoration: InputDecoration(
-                        hintText: 'Bilangan 2'
-                    )
-                ),
-                Container(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      RaisedButton(
-                          onPressed: () {
-                            setState(() {
+                      )
+                    ),
+                    TextFormField(
+                        controller: bil2Controller,
+                        keyboardType: TextInputType.number,
+                        decoration: InputDecoration(
+                            hintText: 'Bilangan 2'
+                        )
+                    ),
+                    Container(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          RaisedButton(
+                            onPressed: BlockData.hitung(int.parse(bil1Controller.text ), int.parse(bil1Controller.text ) , "+"),
+                             /* onPressed: () {
+                                setState(() {
+                                  bilangan1 = bil1Controller.text ;
+                                  bilangan2= bil2Controller.text  ;
+                                  hasilnya = int.parse(bilangan1) + int.parse(bilangan2);
+
+
+
+                                  //print(hasilnya);
+
+                                });
+                              },*/
+
+                              child: Text("+"),
+                          ),
+                          RaisedButton(
+                             onPressed: BlockData.hitung(int.parse(bil1Controller.text ), int.parse(bil1Controller.text ) , "-"),
+                            /*onPressed: () {
+                              setState(() {
+                                bilangan1 = bil1Controller.text ;
+                                bilangan2= bil2Controller.text  ;
+                                hasilnya = int.parse(bilangan1) - int.parse(bilangan2);
+
+                              });
+                            },*/
+                            child: Text("-"),
+                          ),
+                          RaisedButton(
+                             onPressed: BlockData.hitung(int.parse(bil1Controller.text ), int.parse(bil1Controller.text ) , "X"),
+                            /*onPressed: () {
+                              setState(() {
+                                bilangan1 = bil1Controller.text ;
+                                bilangan2= bil2Controller.text  ;
+                                hasilnya = int.parse(bilangan1) * int.parse(bilangan2);
+                              });
+                            },*/
+                            child: Text("X"),
+                          ),
+                          RaisedButton(
+                             onPressed: BlockData.hitung(int.parse(bil1Controller.text ), int.parse(bil1Controller.text ) , "/")
+,
+                           /* onPressed: () {
                               bilangan1 = bil1Controller.text ;
                               bilangan2= bil2Controller.text  ;
-                              hasilnya = int.parse(bilangan1) + int.parse(bilangan2);
+                              hasilnya = int.parse(bilangan1) ~/ int.parse(bilangan2);
+                            },*/
+                            child: Text("/"),
+                          ),
+                         
 
-
-                              //print(hasilnya);
-
-                            });
-                          },
-
-                          child: Text("+"),
+                        ],
                       ),
-                      RaisedButton(
-                        onPressed: () {
-                          setState(() {
-                            bilangan1 = bil1Controller.text ;
-                            bilangan2= bil2Controller.text  ;
-                            hasilnya = int.parse(bilangan1) - int.parse(bilangan2);
+                    ),
+                    Row(
+                      children: <Widget>[
+                        Text("Hasilnya : "+hasilnya.toString(),style: TextStyle(fontWeight: FontWeight.bold),)
+                      ],
+                    )
 
-                          });
-                        },
-                        child: Text("-"),
-                      ),
-                      RaisedButton(
-                        onPressed: () {
-                          setState(() {
-                            bilangan1 = bil1Controller.text ;
-                            bilangan2= bil2Controller.text  ;
-                            hasilnya = int.parse(bilangan1) * int.parse(bilangan2);
-                          });
-                        },
-                        child: Text("X"),
-                      ),
-                      RaisedButton(
-                        onPressed: () {
-                          bilangan1 = bil1Controller.text ;
-                          bilangan2= bil2Controller.text  ;
-                          hasilnya = int.parse(bilangan1) ~/ int.parse(bilangan2);
-                        },
-                        child: Text("/"),
-                      ),
-
-                    ],
-                  ),
-                ),
-                Row(
-                  children: <Widget>[
-                    Text("Hasilnya : "+hasilnya.toString(),style: TextStyle(fontWeight: FontWeight.bold),)
                   ],
                 )
-
-              ],
-            )
-        ),
+            ),
+          );
+        }
       ),
     );
   }
