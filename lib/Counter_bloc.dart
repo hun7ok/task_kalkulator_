@@ -1,13 +1,13 @@
 import 'dart:async';
 
 class CounterBloc {
-  int _counter, hasil = 0;
+  int  hasil = 0;
 
   StreamController<int> _CounterController = StreamController();
   Stream<int> get counter => _CounterController.stream;
 
   void hitung(int text1, int text2, String tanda) {
-    _counter++;
+   
 
     switch (tanda) {
       case "+":
