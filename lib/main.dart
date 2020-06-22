@@ -25,55 +25,48 @@ class Kalkulator extends StatefulWidget {
 }
 
 class _KalkulatorState extends State<Kalkulator> {
-
   TextEditingController bil1Controller = TextEditingController();
   TextEditingController bil2Controller = TextEditingController();
+
+  // get bil2 => null;
   //TextEditingController operatorController = TextEditingController();
- // TextEditingController hasilController = TextEditingController();
+  // TextEditingController hasilController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<KalkulatorBloc>(
-      create: (context) => KalkulatorBloc(),
-          child: Scaffold(
-        appBar: AppBar(
-          title: Text(
-            "Kalkulator",
-            style: TextStyle(
-              fontWeight: FontWeight.bold
-            ),
-          ),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          "Kalkulator",
+          style: TextStyle(fontWeight: FontWeight.bold),
         ),
-        body: StreamBuilder<int> (
-            builder: (context, snapshot) {
-              return Container(
-                padding: EdgeInsets.all(10),
-                child: Form(
-                    child: Column(
-                      children: <Widget>[
-                        TextFormField(
-                          controller: bil1Controller,
-                            keyboardType: TextInputType.number,
-                          decoration: InputDecoration(
-                            hintText: 'Bilangan 1',
-
-                          )
-                        ),
-                        TextFormField(
-                            controller: bil2Controller,
-                            keyboardType: TextInputType.number,
-                            decoration: InputDecoration(
-                                hintText: 'Bilangan 2'
-                            )
-                        ),
-                        Container(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              RaisedButton(
-                                onPressed: () {
-                                  BlockData.hitung(int.parse(bil1Controller.text ), int.parse(bil2Controller.text ) , "+");
-                                },
-                                 /* onPressed: () {
+      ),
+      body: StreamBuilder<int>(builder: (context, snapshot) {
+        return Container(
+          padding: EdgeInsets.all(10),
+          child: Form(
+              child: Column(
+            children: <Widget>[
+              TextFormField(
+                  controller: bil1Controller,
+                  keyboardType: TextInputType.number,
+                  decoration: InputDecoration(
+                    hintText: 'Bilangan 1',
+                  )),
+              TextFormField(
+                  controller: bil2Controller,
+                  keyboardType: TextInputType.number,
+                  decoration: InputDecoration(hintText: 'Bilangan 2')),
+              Container(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    RaisedButton(
+                      onPressed: () {
+                        BlockData.hitung(int.parse(bil1Controller.text),
+                            int.parse(bil2Controller.text), "+");
+                        print(snapshot.data.toString());
+                      },
+                      /* onPressed: () {
                                     setState(() {
                                       bilangan1 = bil1Controller.text ;
                                       bilangan2= bil2Controller.text  ;
@@ -86,14 +79,15 @@ class _KalkulatorState extends State<Kalkulator> {
                                     });
                                   },*/
 
-                                  child: Text("+"),
-                              ),
-                              RaisedButton(
-                                onPressed: () {
-                                  BlockData.hitung(int.parse(bil1Controller.text ), int.parse(bil2Controller.text ) , "-");
-                                }
-                                // onPressed: BlockData.hitung(int.parse(bil1Controller.text ), int.parse(bil1Controller.text ) , "-"),
-                                /*onPressed: () {
+                      child: Text("+"),
+                    ),
+                    RaisedButton(
+                      onPressed: () {
+                        BlockData.hitung(int.parse(bil1Controller.text),
+                            int.parse(bil2Controller.text), "-");
+                      },
+                      // onPressed: BlockData.hitung(int.parse(bil1Controller.text ), int.parse(bil1Controller.text ) , "-"),
+                      /*onPressed: () {
                                   setState(() {
                                     bilangan1 = bil1Controller.text ;
                                     bilangan2= bil2Controller.text  ;
@@ -101,54 +95,50 @@ class _KalkulatorState extends State<Kalkulator> {
 
                                   });
                                 },*/
-                                child: Text("-"),
-                              ),
-                              RaisedButton(
-                                 onPressed: () {
-                                  BlockData.hitung(int.parse(bil1Controller.text ), int.parse(bil1Controller.text ) , "X");,
-                                 },
-                                /*onPressed: () {
+                      child: Text("-"),
+                    ),
+                    RaisedButton(
+                      onPressed: () {
+                        BlockData.hitung(int.parse(bil1Controller.text),
+                            int.parse(bil1Controller.text), "X");
+                      },
+                      /*onPressed: () {
                                   setState(() {
                                     bilangan1 = bil1Controller.text ;
                                     bilangan2= bil2Controller.text  ;
                                     hasilnya = int.parse(bilangan1) * int.parse(bilangan2);
                                   });
                                 },*/
-                                child: Text("X"),
-                              ),
-                              RaisedButton(
-                                onPressed: () {
-                                 BlockData.hitung(int.parse(bil1Controller.text ), int.parse(bil2  Controller.text ) , "/");
-                                },
-,
-                               /* onPressed: () {
+                      child: Text("X"),
+                    ),
+                    RaisedButton(
+                      onPressed: () {
+                        BlockData.hitung(int.parse(bil1Controller.text),
+                            int.parse(bil2Controller.text), "/");
+                      },
+
+                      /* onPressed: () {
                                   bilangan1 = bil1Controller.text ;
                                   bilangan2= bil2Controller.text  ;
                                   hasilnya = int.parse(bilangan1) ~/ int.parse(bilangan2);
                                 },*/
-                                child: Text("/"),
-                              ),
-                             
-
-                            ],
-                          ),
-                        ),
-                        Row(
-                          children: <Widget>[
-                            
-                            Text("Hasilnya : "+snapshot.data.toString(),style: TextStyle(fontWeight: FontWeight.bold),)
-                          ],
-                        )
-
-                      ],
-                    )
+                      child: Text("/"),
+                    ),
+                  ],
                 ),
-              );
-            }
-          ),
-        ),
-      );
-    
+              ),
+              Row(
+                children: <Widget>[
+                  Text(
+                    "Hasilnya : " + snapshot.data.toString(),
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  )
+                ],
+              )
+            ],
+          )),
+        );
+      }),
+    );
   }
 }
-
