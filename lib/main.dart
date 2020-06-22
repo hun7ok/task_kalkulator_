@@ -26,19 +26,15 @@ class Kalkulator extends StatefulWidget {
 
 class _KalkulatorState extends State<Kalkulator> {
 
-  final GlobalKey<ScaffoldState> _key = GlobalKey<ScaffoldState>();
   TextEditingController bil1Controller = TextEditingController();
   TextEditingController bil2Controller = TextEditingController();
   //TextEditingController operatorController = TextEditingController();
  // TextEditingController hasilController = TextEditingController();
-  String bilangan1,bilangan2,bilangan3;
-  int hasilnya;
   @override
   Widget build(BuildContext context) {
     return BlocProvider<KalkulatorBloc>(
       create: (context) => KalkulatorBloc(),
           child: Scaffold(
-        key: _key,
         appBar: AppBar(
           title: Text(
             "Kalkulator",
@@ -47,9 +43,7 @@ class _KalkulatorState extends State<Kalkulator> {
             ),
           ),
         ),
-        body: BlocBuilder(
-                  
-            
+        body: StreamBuilder<int> (
             builder: (context, snapshot) {
               return Container(
                 padding: EdgeInsets.all(10),
@@ -76,7 +70,9 @@ class _KalkulatorState extends State<Kalkulator> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
                               RaisedButton(
-                               // onPressed: BlockData.hitung(int.parse(bil1Controller.text ), int.parse(bil1Controller.text ) , "+"),
+                                onPressed: () {
+                                  BlockData.hitung(int.parse(bil1Controller.text ), int.parse(bil2Controller.text ) , "+");
+                                },
                                  /* onPressed: () {
                                     setState(() {
                                       bilangan1 = bil1Controller.text ;
@@ -93,6 +89,9 @@ class _KalkulatorState extends State<Kalkulator> {
                                   child: Text("+"),
                               ),
                               RaisedButton(
+                                onPressed: () {
+                                  BlockData.hitung(int.parse(bil1Controller.text ), int.parse(bil2Controller.text ) , "-");
+                                }
                                 // onPressed: BlockData.hitung(int.parse(bil1Controller.text ), int.parse(bil1Controller.text ) , "-"),
                                 /*onPressed: () {
                                   setState(() {
@@ -105,7 +104,9 @@ class _KalkulatorState extends State<Kalkulator> {
                                 child: Text("-"),
                               ),
                               RaisedButton(
-                               //  onPressed: BlockData.hitung(int.parse(bil1Controller.text ), int.parse(bil1Controller.text ) , "X"),
+                                 onPressed: () {
+                                  BlockData.hitung(int.parse(bil1Controller.text ), int.parse(bil1Controller.text ) , "X");,
+                                 },
                                 /*onPressed: () {
                                   setState(() {
                                     bilangan1 = bil1Controller.text ;
@@ -116,7 +117,9 @@ class _KalkulatorState extends State<Kalkulator> {
                                 child: Text("X"),
                               ),
                               RaisedButton(
-                                // onPressed: BlockData.hitung(int.parse(bil1Controller.text ), int.parse(bil1Controller.text ) , "/")
+                                onPressed: () {
+                                 BlockData.hitung(int.parse(bil1Controller.text ), int.parse(bil2  Controller.text ) , "/");
+                                },
 ,
                                /* onPressed: () {
                                   bilangan1 = bil1Controller.text ;
@@ -133,7 +136,7 @@ class _KalkulatorState extends State<Kalkulator> {
                         Row(
                           children: <Widget>[
                             
-                            Text("Hasilnya : "+hasilnya.toString(),style: TextStyle(fontWeight: FontWeight.bold),)
+                            Text("Hasilnya : "+snapshot.data.toString(),style: TextStyle(fontWeight: FontWeight.bold),)
                           ],
                         )
 
