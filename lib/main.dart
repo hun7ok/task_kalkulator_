@@ -40,7 +40,11 @@ class _KalkulatorState extends State<Kalkulator> {
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
       ),
-      body: StreamBuilder<int>(builder: (context, snapshot) {
+      body: StreamBuilder<int>(
+        stream: BlockData.counter,
+        initialData: 0,
+        builder: (context, snapshot) {
+        
         return Container(
           padding: EdgeInsets.all(10),
           child: Form(

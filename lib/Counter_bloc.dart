@@ -9,7 +9,7 @@ class CounterBloc {
   void hitung(int text1, int text2, String tanda) {
     switch (tanda) {
       case "+":
-        hasil = text1 + text2;
+        hasil = (text1 + text2);
         break;
       case "-":
         hasil = text1 - text2;
